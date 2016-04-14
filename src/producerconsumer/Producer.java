@@ -1,7 +1,6 @@
 package producerconsumer;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -9,9 +8,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Producer implements Runnable
 {
-    private static final AtomicInteger PRODUCER_ID = new AtomicInteger();
+    private static int PRODUCER_ID;
 
-    private final int id = PRODUCER_ID.getAndIncrement();
+    private final int id = PRODUCER_ID++;
     private final BlockingQueue<Integer> q;
         
     Producer( BlockingQueue q ) { this.q = q; }

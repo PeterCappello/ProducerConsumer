@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Consumer implements Runnable
 {
-    private static final AtomicInteger CONSUMER_ID = new AtomicInteger();
+    private static int CONSUMER_ID;
 
-    private final int id = CONSUMER_ID.getAndIncrement();
+    private final int id = CONSUMER_ID++;
     private final BlockingQueue<Integer> q;
     private final AtomicInteger sum;
     
@@ -25,8 +25,11 @@ public class Consumer implements Runnable
    public void run() 
    {
      try 
-     {
-       while ( true ) { consume( q.take() ); }
+     { 
+         while ( true ) 
+         { 
+             consume( q.take() ); 
+         } 
      } 
      catch (InterruptedException ignore ) {}
    }
