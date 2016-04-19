@@ -24,7 +24,9 @@ public class ProducerConsumer
         Consumer c2 = new Consumer( q, sum, total );
         Consumer c3 = new Consumer( q, sum, total );
         new Thread( c1 ).start();
-//        new Thread( c2 ).start();
+        
+        // the extra Consumer threads illustate a race condition on the int total.
+//        new Thread( c2 ).start(); 
 //        new Thread( c3 ).start();
         new Thread( p1 ).start();
         new Thread( p2 ).start(); 
