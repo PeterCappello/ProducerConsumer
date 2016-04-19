@@ -17,14 +17,15 @@ public class ProducerConsumer
     {
         BlockingQueue q = new LinkedBlockingQueue();
         AtomicInteger sum = new AtomicInteger();
+        int total = 0;
         Producer p1 = new Producer( q );
         Producer p2 = new Producer( q );
-        Consumer c1 = new Consumer( q, sum );
-        Consumer c2 = new Consumer( q, sum );
-        Consumer c3 = new Consumer( q, sum );
+        Consumer c1 = new Consumer( q, sum, total );
+        Consumer c2 = new Consumer( q, sum, total );
+        Consumer c3 = new Consumer( q, sum, total );
         new Thread( c1 ).start();
-        new Thread( c2 ).start();
-        new Thread( c3 ).start();
+//        new Thread( c2 ).start();
+//        new Thread( c3 ).start();
         new Thread( p1 ).start();
         new Thread( p2 ).start(); 
     }

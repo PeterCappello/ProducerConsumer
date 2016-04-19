@@ -14,11 +14,13 @@ public class Consumer implements Runnable
     private final int id = CONSUMER_ID++;
     private final BlockingQueue<Integer> q;
     private final AtomicInteger sum;
+    private int total;
     
-   Consumer( BlockingQueue q, AtomicInteger sum ) 
+   Consumer( BlockingQueue q, AtomicInteger sum, int total ) 
    { 
        this.q = q;
        this.sum = sum;
+       this.total = total;
    }
    
     @Override
@@ -37,6 +39,7 @@ public class Consumer implements Runnable
    void consume( Integer i ) 
    { 
        sum.addAndGet( i ) ; 
-       System.out.println( "Consumer " + id + " consuming " + i + " Sum: " + sum );
+       total += i;
+       System.out.println( "Consumer " + id + " consuming " + i + " Sum: " + sum + " total: "  + total );
    } 
 }
