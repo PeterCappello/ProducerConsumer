@@ -14,9 +14,9 @@ public class Consumer implements Runnable
     private final int id = CONSUMER_ID++;
     private final BlockingQueue<Integer> q;
     private final AtomicInteger sum;
-    private int total;
+    private Integer total;
     
-   Consumer( BlockingQueue q, AtomicInteger sum, int total ) 
+   Consumer( BlockingQueue q, AtomicInteger sum, Integer total ) 
    { 
        this.q = q;
        this.sum = sum;
@@ -38,8 +38,16 @@ public class Consumer implements Runnable
    
    void consume( Integer i ) 
    { 
-       sum.addAndGet( i ) ; 
-       total += i;
-       System.out.println( "Consumer " + id + " consuming " + i + " Sum: " + sum + " total: "  + total );
+       /** 
+        * synchronized necessary to ensure that println executes before another 
+        * consumer thread modifies sum. 
+        * (Run it w/o synchronized to illustrate race.)
+        */
+       synchronized ( sum )
+       {
+           sum.addAndGet( i ); 
+           total += i;
+           System.out.println( "Consumer " + id + " consuming " + i + " sum: " + sum + " total: "  + total );
+       }
    } 
 }
