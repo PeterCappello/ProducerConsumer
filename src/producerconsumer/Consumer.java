@@ -41,14 +41,17 @@ public class Consumer implements Runnable
        /** 
         * synchronized necessary to ensure that println executes before another 
         * consumer thread modifies sum. 
+        * println sequence of sum will be monotonically nondecreasing
         * (Run it w/o synchronized to illustrate race.)
         */
        synchronized ( sum )
        {
-           sum.addAndGet( i );    // sum will appear monotonically nondecreasing
+           sum.addAndGet( i );
            System.out.println( "Consumer " + id + " consuming " + i + " sum: " + sum );
        }
-       total += i;           // total may not appear monotonically nondecreasing
+       
+       // println sequence of total may not be monotonically nondecreasing
+       total += i;           
        System.out.println( "Consumer " + id + " consuming " + i + " total: "  + total );
    } 
 }
