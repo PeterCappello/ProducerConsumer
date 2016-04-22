@@ -45,9 +45,10 @@ public class Consumer implements Runnable
         */
        synchronized ( sum )
        {
-           sum.addAndGet( i ); 
-           total += i;
-           System.out.println( "Consumer " + id + " consuming " + i + " sum: " + sum + " total: "  + total );
+           sum.addAndGet( i );    // sum will appear monotonically nondecreasing
+           System.out.println( "Consumer " + id + " consuming " + i + " sum: " + sum );
        }
+       total += i;           // total may not appear monotonically nondecreasing
+       System.out.println( "Consumer " + id + " consuming " + i + " total: "  + total );
    } 
 }
